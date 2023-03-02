@@ -13,7 +13,7 @@ export async function handleMsgToImg(msgItem: GaxiosResponse<gmail_v1.Schema$Mes
     var part = msgItem.data.payload?.parts?.find((part) => part.mimeType == 'text/html');
     const textBase64 = part?.body?.data;
     if (!textBase64) return;
-    var bytes = base64.decode(textBase64.replaceAll('-', '+').replaceAll('_', '/'));
+    var bytes = base64.decode(textBase64.replace(/-/g, '+').replace(/_/g, '/'));
     var text = utf8.decode(bytes);
     await nodeHtmlToImage({
         output: IMG_PATH,
