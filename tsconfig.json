@@ -1,14 +1,18 @@
 {
   "compilerOptions": {
-    "target": "es2021",
+    "skipLibCheck": true,
     "module": "commonjs",
+    "lib": ["es5", "es6", "dom"],
     "strict": true,
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "esModuleInterop": true,
-    "outDir": "dist",
+    "rootDir": "src",
+    "outDir": "ts-dist",
+    "removeComments": true
   },
   "include": [
     "src/**/*"
-  ]
+  ],
+
 }
