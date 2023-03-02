@@ -20,7 +20,7 @@ phases:
       - echo Create app.zip file...
       - zip -r app.zip dist/
       - zip -r app.zip asset/
-      - zip -r app.zip msg-img/
+      - zip -r app.zip . -i msg-img/
 artifacts:
   files:
     - start_preview.sh
