@@ -10,7 +10,6 @@ permissions:
     group: ec2-user
 hooks:
   BeforeInstall:
-    - location: /
       timeout: 60
       runas: root
       commands:
