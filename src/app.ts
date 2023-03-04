@@ -5,6 +5,7 @@ import { authorize } from './api-auth';
 import { getMailList, getMessage, handleMsgToImg } from './api-gmail';
 import { delay, handleDeleteFile, handleGetSetting, handleSetSetting, log } from './utils';
 
+import { app, BrowserWindow } from 'electron'
 const lineNotifyToken = "AEMm5V3v2QqzPaiBPs5UjpUURrDYCsi6stbzmc3cYB9";
 const notify = new Notify({
     token: lineNotifyToken
@@ -37,7 +38,7 @@ async function init() {
     log('\n取得信件內容...');
     const msg = await getMessage(auth, sendMsgTarget.id);
     log(`成功\n`)
-    ;
+        ;
     log('將信件內容轉成圖片...');
     const imgPath = await handleMsgToImg(msg, sendMsgTarget.id);
     if (!imgPath) return;
@@ -61,4 +62,9 @@ async function init() {
     log(`結束\n`)
 
 }
-init()
+// init()
+app.whenReady().then(async () => {
+    while (true) {
+        await init()
+    }
+})

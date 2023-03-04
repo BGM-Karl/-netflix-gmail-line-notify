@@ -2,3 +2,5 @@ node_modules
 dist
 ts-dist
 .DS_Store
+
+out/
