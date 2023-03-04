@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "ts-node src/app.ts",
     "build:ts": "tsc",
-    "build": "npm run package",
+    "build": "build:ts && npm run package",
     "start:ts": "node ts-dist/app.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "electron-forge start",
