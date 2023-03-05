@@ -5,7 +5,6 @@ import { authorize } from './api-auth';
 import { getMailList, getMessage, handleMsgToImg } from './api-gmail';
 import { delay, handleDeleteFile, handleGetSetting, handleSetSetting, log } from './utils';
 
-import { app, BrowserWindow } from 'electron'
 const lineNotifyToken = "AEMm5V3v2QqzPaiBPs5UjpUURrDYCsi6stbzmc3cYB9";
 const notify = new Notify({
     token: lineNotifyToken
@@ -63,8 +62,9 @@ async function init() {
 
 }
 // init()
-app.whenReady().then(async () => {
+(async () => {
     while (true) {
-        await init()
+        await init();
     }
-})
+})()
+
