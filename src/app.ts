@@ -1,9 +1,9 @@
 // const fs = require('fs').promises;
 import { Notify } from 'line-api';
-import { defaultTo, last } from 'lodash';
+import { last } from 'lodash';
 import { authorize } from './api-auth';
-import { getMailList, getMessage, handleMsgToImg } from './api-gmail';
-import { delay, handleDeleteFile, handleGetSetting, handleSetSetting, log } from './utils';
+import { getMailList, getMessage, handleMsgToText } from './api-gmail';
+import { delay, handleGetSetting, handleSetSetting, log } from './utils';
 
 const lineNotifyToken = "AEMm5V3v2QqzPaiBPs5UjpUURrDYCsi6stbzmc3cYB9";
 const notify = new Notify({
@@ -38,9 +38,12 @@ async function init() {
     const msg = await getMessage(auth, sendMsgTarget.id);
     log(`成功\n`)
         ;
-    log('將信件內容轉成圖片...');
-    const imgPath = await handleMsgToImg(msg, sendMsgTarget.id);
-    if (!imgPath) return;
+    // log('將信件內容轉成圖片...');
+    // const imgPath = await handleMsgToImg(msg, sendMsgTarget.id);
+    // if (!imgPath) return;
+    log('將信件內容轉成文字...');
+    const imgText = handleMsgToText(msg);
+    console.log("🚀 ~ file: app.ts:45 ~ init ~ imgText:", JSON.stringify({imgText}))
     log(`成功\n`)
 
     await handleSetSetting({
@@ -49,12 +52,11 @@ async function init() {
 
     log('將信件轉發至line notify...');
     await notify.send({
-        'message': `\n${defaultTo(msg.data.snippet, '')}`,
-        'image': imgPath
+        'message': `\n${imgText}`,
     })
     log(`成功\n`)
 
-    await handleDeleteFile(imgPath)
+    // await handleDeleteFile(imgPath)
 
     log(`休息五秒...`)
     await delay(5000)

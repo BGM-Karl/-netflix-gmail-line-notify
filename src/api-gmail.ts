@@ -4,22 +4,37 @@ import { JSONClient } from 'google-auth-library/build/src/auth/googleauth';
 import { GaxiosResponse } from 'gaxios';
 import base64 from 'base-64';
 import utf8 from 'utf8';
-import nodeHtmlToImage from 'node-html-to-image';
-import path from 'path';
+
+import { convert } from 'html-to-text';
+import {  removeAllLink, removeSquareBrackets ,replaceMultipleEmptyLines} from './utils';
 
 
-export async function handleMsgToImg(msgItem: GaxiosResponse<gmail_v1.Schema$Message>, msgId: string = "img") {
-    const IMG_PATH = `${path.join(process.cwd(), '/msg-img')}/${msgId}.jpg`;
-    var part = msgItem.data.payload?.parts?.find((part) => part.mimeType == 'text/html');
+
+// export async function handleMsgToImg(msgItem: GaxiosResponse<gmail_v1.Schema$Message>, msgId: string = "img") {
+//     const IMG_PATH = `${path.join(process.cwd(), '/msg-img')}/${msgId}.jpg`;
+//     var part = msgItem.data.payload?.parts?.find((part) => part.mimeType == 'text/html');
+//     const textBase64 = part?.body?.data;
+//     if (!textBase64) return;
+//     var bytes = base64.decode(textBase64.replace(/-/g, '+').replace(/_/g, '/'));
+//     var text = utf8.decode(bytes);
+//     await nodeHtmlToImage({
+//         output: IMG_PATH,
+//         html: text
+//     })
+//     return IMG_PATH
+// }
+export function handleMsgToText(msgItem: GaxiosResponse<gmail_v1.Schema$Message>) {
+    const part = msgItem.data.payload?.parts?.find((part) => part.mimeType == 'text/html');
     const textBase64 = part?.body?.data;
     if (!textBase64) return;
-    var bytes = base64.decode(textBase64.replace(/-/g, '+').replace(/_/g, '/'));
-    var text = utf8.decode(bytes);
-    await nodeHtmlToImage({
-        output: IMG_PATH,
-        html: text
-    })
-    return IMG_PATH
+    const bytes = base64.decode(textBase64.replace(/-/g, '+').replace(/_/g, '/'));
+    const html = utf8.decode(bytes);
+    let text = convert(html);
+    text = text.replace(' ', '')
+    text = removeAllLink(text)
+    text = removeSquareBrackets(text)
+    text = replaceMultipleEmptyLines(text)
+    return text
 }
 
 export async function getMessage(auth: JSONClient, messageId: string) {

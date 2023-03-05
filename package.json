@@ -7,7 +7,7 @@
     "dev": "ts-node src/app.ts",
     "build:ts": "tsc",
     "build:js": "webpack",
-    "build": "npm run build:ts",
+    "build": "npm run build:js",
     "start:ts": "node ts-dist/app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -15,6 +15,7 @@
   "license": "ISC",
   "devDependencies": {
     "@types/base-64": "^1.0.0",
+    "@types/html-to-text": "^9.0.0",
     "@types/lodash": "^4.14.191",
     "@types/node": "^18.13.0",
     "@types/utf8": "^3.0.1",
@@ -28,6 +29,7 @@
     "base-64": "^1.0.0",
     "dayjs": "^1.11.7",
     "googleapis": "^105.0.0",
+    "html-to-text": "^9.0.4",
     "line-api": "^0.2.4",
     "lodash": "^4.17.21",
     "node-html-to-image": "^3.3.0",
