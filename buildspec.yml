@@ -24,6 +24,6 @@ phases:
 artifacts:
   files:
     - start_preview.sh
-    - appspec.yml
     - app.zip
+    - appspec.yml
   base-directory: .
