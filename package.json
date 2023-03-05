@@ -7,7 +7,7 @@
     "dev": "ts-node src/app.ts",
     "build:ts": "tsc",
     "build:js": "webpack",
-    "build": "npm run build:js",
+    "build": "npm run build:js && npm run build:ts",
     "start:ts": "node ts-dist/app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -32,7 +32,6 @@
     "html-to-text": "^9.0.4",
     "line-api": "^0.2.4",
     "lodash": "^4.17.21",
-    "node-html-to-image": "^3.3.0",
     "ts-node": "^10.9.1",
     "utf8": "^3.0.0"
   }
