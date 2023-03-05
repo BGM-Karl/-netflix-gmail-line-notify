@@ -13,6 +13,6 @@ hooks:
   ApplicationStart:
     - location:  start_preview.sh
       timeout: 60
-      runas: ec2-user
+      runas: root
       waitAfterCompletion: 0
       ignoreErrors: false
