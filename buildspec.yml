@@ -19,7 +19,6 @@ phases:
     commands:
       - echo Create app.zip file...
       - zip -r app.zip dist/
-      - zip -r app.zip ts-dist/
       - zip -r app.zip asset/
       - zip -r app.zip . -i msg-img/
 artifacts:
